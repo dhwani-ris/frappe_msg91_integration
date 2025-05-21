@@ -1,12 +1,17 @@
 # MSG91 Integration
 
-This app provides integration with the MSG91 SMS gateway for Frappe Framework. It allows you to configure and use MSG91 for sending SMS messages and handling OTP functionality, overriding the default SMS settings.
+This app provides integration with the MSG91 SMS gateway for Frappe Framework. It allows you to configure and use MSG91 for sending both transactional and promotional SMS messages, as well as comprehensive OTP functionality, overriding the default SMS settings.
 
 ## Features
 
 - Configure MSG91 SMS gateway from the UI
-- OTP functionality (send, verify, resend)
-- REST API endpoints for SMS and OTP operations
+- Send transactional SMS using templates
+- Send promotional SMS with custom messages 
+- Complete OTP functionality:
+  - Generate and send OTP
+  - Verify OTP codes
+  - Resend OTP via text/voice
+- REST API endpoints for all SMS and OTP operations
 - Client-side JavaScript utilities for easy integration
 
 ## Installation
