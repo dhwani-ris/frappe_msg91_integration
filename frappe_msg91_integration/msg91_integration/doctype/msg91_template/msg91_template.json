@@ -1,0 +1,36 @@
+{
+    "allow_rename": 0,
+    "creation": "2023-05-01 00:00:00.000000",
+    "doctype": "DocType",
+    "engine": "InnoDB",
+    "field_order": [
+        "template_name",
+        "template_id"
+    ],
+    "fields": [
+        {
+            "fieldname": "template_name",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Template Name",
+            "reqd": 1
+        },
+        {
+            "fieldname": "template_id",
+            "fieldtype": "Data",
+            "in_list_view": 1,
+            "label": "Template ID",
+            "reqd": 1
+        }
+    ],
+    "istable": 1,
+    "modified": "2023-05-01 00:00:00.000000",
+    "module": "MSG91 Integration",
+    "name": "MSG91 Template",
+    "name_case": "Title Case",
+    "owner": "Administrator",
+    "permissions": [],
+    "sort_field": "modified",
+    "sort_order": "DESC",
+    "track_changes": 1
+} 

@@ -26,7 +26,7 @@ app_license = "mit"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/frappe_msg91_integration/css/frappe_msg91_integration.css"
-# app_include_js = "/assets/frappe_msg91_integration/js/frappe_msg91_integration.js"
+app_include_js = "/assets/frappe_msg91_integration/js/frappe_msg91_integration.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/frappe_msg91_integration/css/frappe_msg91_integration.css"
@@ -86,7 +86,7 @@ app_license = "mit"
 # ------------
 
 # before_install = "frappe_msg91_integration.install.before_install"
-# after_install = "frappe_msg91_integration.install.after_install"
+# after_install = "frappe_msg91_integration.msg91_integration.install.after_install"
 
 # Uninstallation
 # ------------
@@ -132,13 +132,11 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+    "SMS Settings": {
+        "validate": "frappe_msg91_integration.msg91_integration.events.sms_settings_validate",
+    }
+}
 
 # Scheduled Tasks
 # ---------------
@@ -199,7 +197,7 @@ app_license = "mit"
 # before_job = ["frappe_msg91_integration.utils.before_job"]
 # after_job = ["frappe_msg91_integration.utils.after_job"]
 
-# User Data Protection
+# User Data ProtectionMSG91 Settings None not found
 # --------------------
 
 # user_data_fields = [
@@ -236,4 +234,9 @@ app_license = "mit"
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
+
+# Override the send_sms function from frappe
+override_whitelisted_methods = {
+    "frappe.core.doctype.sms_settings.sms_settings.send_sms": "frappe_msg91_integration.msg91_integration.sms_sender.override_frappe_send_sms"
+}
 
