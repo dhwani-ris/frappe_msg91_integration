@@ -12,6 +12,7 @@
         "otp_route",
         "sms_route",
         "template_section",
+        "two_factor_message",
         "templates"
     ],
     "fields": [
@@ -62,6 +63,13 @@
             "fieldname": "template_section",
             "fieldtype": "Section Break",
             "label": "SMS Templates"
+        },
+        {
+            "fieldname": "two_factor_message",
+            "fieldtype": "Text",
+            "label": "Two Factor Authentication Message",
+            "description": "Custom message template for 2FA SMS. Use {otp} as placeholder for the OTP code. Example: 'Your login code is {otp}. Valid for 3 minutes.'",
+            "default": "Your verification code is {otp}"
         },
         {
             "fieldname": "templates",

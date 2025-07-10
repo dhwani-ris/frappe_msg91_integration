@@ -192,6 +192,8 @@ doc_events = {
 # before_request = ["frappe_msg91_integration.utils.before_request"]
 # after_request = ["frappe_msg91_integration.utils.after_request"]
 
+
+
 # Job Events
 # ----------
 # before_job = ["frappe_msg91_integration.utils.before_job"]
@@ -237,6 +239,12 @@ doc_events = {
 
 # Override the send_sms function from frappe
 override_whitelisted_methods = {
-    "frappe.core.doctype.sms_settings.sms_settings.send_sms": "frappe_msg91_integration.msg91_integration.sms_sender.override_frappe_send_sms"
+    "frappe.core.doctype.sms_settings.sms_settings.send_sms": "frappe_msg91_integration.msg91_integration.sms_sender.override_frappe_send_sms",
+    "frappe.core.doctype.sms_settings.sms_settings.send_request": "frappe_msg91_integration.msg91_integration.utils.override_sms_send_request"
 }
+
+# Boot session hook to ensure monkey patch is applied when Frappe starts
+boot_session = "frappe_msg91_integration.msg91_integration.utils.apply_monkey_patch_on_boot"
+
+
 

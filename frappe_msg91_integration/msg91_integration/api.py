@@ -72,4 +72,57 @@ def resend_otp_api(mobile, retrytype="text"):
         retrytype=retrytype
     )
     
-    return result 
+    return result
+
+@frappe.whitelist(allow_guest=False)
+def check_2fa_override_status():
+    """Check if the 2FA SMS override is active"""
+    if not frappe.has_permission("MSG91 Settings", "read"):
+        frappe.throw(_("Not permitted"), frappe.PermissionError)
+    
+    try:
+        import frappe.twofactor
+        current_func = getattr(frappe.twofactor, 'send_token_via_sms', None)
+        from frappe_msg91_integration.msg91_integration.utils import send_token_via_sms_msg91
+        
+        is_overridden = current_func == send_token_via_sms_msg91
+        
+        return {
+            "is_overridden": is_overridden,
+            "current_function": str(current_func),
+            "expected_function": str(send_token_via_sms_msg91),
+            "msg91_enabled": frappe.get_single("MSG91 Settings").enabled if frappe.db.exists("Singles", "MSG91 Settings") else False
+        }
+    except Exception as e:
+        return {
+            "error": str(e),
+            "is_overridden": False
+        }
+
+@frappe.whitelist(allow_guest=False)
+def force_apply_2fa_override():
+    """Manually apply the 2FA SMS override"""
+    if not frappe.has_permission("MSG91 Settings", "read"):
+        frappe.throw(_("Not permitted"), frappe.PermissionError)
+    
+    try:
+        from frappe_msg91_integration.msg91_integration.utils import monkey_patch_twofactor_sms
+        monkey_patch_twofactor_sms()
+        
+        # Check if it worked
+        import frappe.twofactor
+        current_func = getattr(frappe.twofactor, 'send_token_via_sms', None)
+        from frappe_msg91_integration.msg91_integration.utils import send_token_via_sms_msg91
+        
+        is_overridden = current_func == send_token_via_sms_msg91
+        
+        return {
+            "success": True,
+            "is_overridden": is_overridden,
+            "message": "Override applied successfully" if is_overridden else "Override may not have been applied correctly"
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "error": str(e)
+        }
