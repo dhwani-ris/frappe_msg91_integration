@@ -4,6 +4,7 @@ from frappe.utils.password import get_decrypted_password
 from frappe import _
 from frappe.utils import cstr
 import json
+from frappe.rate_limiter import rate_limit
 from frappe_msg91_integration.msg91_integration.utils import send_sms, send_otp, verify_otp, resend_otp
 
 @frappe.whitelist(allow_guest=False)
@@ -39,7 +40,8 @@ def send_sms_api(mobile, message=None, template=None, variables=None):
     
     return result
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=True,methods=["POST"])
+@rate_limit(key='mobile_otp_send', limit=5, seconds=60 * 60)
 def send_otp_api(mobile, otp_length=4, otp_expiry=5):
     """API endpoint to send OTP"""
     result = send_otp(
@@ -50,7 +52,8 @@ def send_otp_api(mobile, otp_length=4, otp_expiry=5):
     
     return result
 
-@frappe.whitelist()
+@frappe.whitelist(allow_guest=True, methods=["POST"])
+@rate_limit(key='mobile_otp_verify', limit=5, seconds=60 * 60)
 def verify_otp_api(mobile, otp):
     """API endpoint to verify OTP"""
     result = verify_otp(
@@ -60,7 +63,8 @@ def verify_otp_api(mobile, otp):
     
     return result
 
-@frappe.whitelist(allow_guest=True)
+@frappe.whitelist(allow_guest=True, methods=["POST"])
+@rate_limit(key='mobile_otp_send', limit=5, seconds=60 * 60)
 def resend_otp_api(mobile, retrytype="text"):
     """API endpoint to resend OTP"""
     result = resend_otp(
