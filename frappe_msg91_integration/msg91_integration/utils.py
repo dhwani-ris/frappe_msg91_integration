@@ -101,14 +101,14 @@ def send_sms(number, message=None, template_name=None, variables=None):
         )
         return {"success": False, "error": response.text}
 
-def send_otp(number, otp_length=6, otp_expiry=5):
+def send_otp(number, otp_length=6, otp_expiry=5, otp=None):
     """
     Send OTP using MSG91
     
     :param number: Mobile number with country code
-    :param template_name: Optional template ID to use
-    :param otp_length: Length of OTP (default: 4)
+    :param otp_length: Length of OTP (default: 6)
     :param otp_expiry: OTP expiry time in minutes (default: 5)
+    :param otp: Optional predefined OTP to send
     """
     if not number:
         frappe.throw(_("Mobile number is required"))
@@ -131,6 +131,10 @@ def send_otp(number, otp_length=6, otp_expiry=5):
         "otp_length": otp_length,
         "otp_expiry": otp_expiry
     }
+    
+    # Add predefined OTP if provided
+    if otp:
+        data["otp"] = otp
     
     template_id = settings["templates"].get("otp_template_id")
     if not template_id:
