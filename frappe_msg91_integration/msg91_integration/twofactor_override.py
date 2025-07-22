@@ -14,12 +14,29 @@ def send_token_via_sms_override(otpsecret, token=None, phone_no=None):
     """
     if not phone_no:
         return False
-    
     try:
-        # Generate OTP using HOTP
+        # Log the incoming token and secret for debugging
+        frappe.log_error(
+            message=f"[2FA DEBUG] token={token} (type={type(token)}), otpsecret={otpsecret}",
+            title="MSG91 2FA OTP Debug"
+        )
+        # Defensive: ensure token is int, log if not
+        try:
+            token_int = int(token)
+        except Exception as conv_exc:
+            frappe.log_error(
+                message=f"[2FA DEBUG] Could not convert token to int: {token} ({conv_exc})",
+                title="MSG91 2FA OTP Debug"
+            )
+            return False
+        # Generate OTP using HOTP with the provided token (counter)
         hotp = pyotp.HOTP(otpsecret)
-        otp_code = hotp.at(int(token))
-        
+        otp_code = hotp.at(token_int)
+        # Log the generated OTP for debugging
+        frappe.log_error(
+            message=f"[2FA DEBUG] Generated OTP: {otp_code} for token: {token_int}",
+            title="MSG91 2FA OTP Debug"
+        )
         # Enqueue the MSG91 OTP sending
         enqueue(
             method=send_msg91_otp,
@@ -32,9 +49,7 @@ def send_token_via_sms_override(otpsecret, token=None, phone_no=None):
             phone_no=phone_no,
             otp_code=str(otp_code)
         )
-        
         return True
-        
     except Exception as e:
         frappe.log_error(
             message=f"Failed to send OTP via MSG91: {str(e)}",
@@ -51,6 +66,10 @@ def send_msg91_otp(phone_no, otp_code):
     :param otp_code: OTP code to send
     """
     try:
+        frappe.log_error(
+            message=f"OTP Code: {otp_code}",
+            title="OTP Code"
+        )
         result = send_otp(
             number=phone_no,
             otp_length=len(otp_code),
