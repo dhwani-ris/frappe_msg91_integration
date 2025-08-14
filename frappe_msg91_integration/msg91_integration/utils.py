@@ -52,7 +52,7 @@ def send_sms(number, message=None, template_name=None, variables=None):
         data = {
             "flow_id": template_id,
             "sender": settings["sender_id"],
-            "recipients": [{"mobiles": number, "VAR": variables or {}}]
+            "recipients": [{"mobiles": number, **(variables or {})}]
         }
         
         # Make API request
