@@ -2,7 +2,7 @@ import frappe
 import pyotp
 from frappe_msg91_integration.msg91_integration.utils import send_otp
 
-def send_token_via_sms_override(otpsecret, token=None, phone_no=None):
+def send_token_via_sms(otpsecret, token=None, phone_no=None):
     """
     Generate OTP and send using local send_otp function.
     :param otpsecret: OTP secret for generating HOTP

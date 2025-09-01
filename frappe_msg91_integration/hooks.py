@@ -236,8 +236,9 @@ doc_events = {
 # }
 
 # Override the send_sms function from frappe
-override_whitelisted_methods = {
-    "frappe.core.doctype.sms_settings.sms_settings.send_sms": "frappe_msg91_integration.msg91_integration.sms_sender.override_frappe_send_sms"
-}
+# override_whitelisted_methods = {
+   
+# }
 
-mobile_otp_sms_sender = "frappe_msg91_integration.msg91_integration.twofactor_override.send_token_via_sms_override" 
+send_sms = "frappe_msg91_integration.msg91_integration.sms_sender.frappe_send_sms"
+mobile_otp_sms_sender = "frappe_msg91_integration.msg91_integration.twofactor.send_token_via_sms" 
