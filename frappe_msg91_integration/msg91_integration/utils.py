@@ -15,6 +15,7 @@ def get_msg91_settings():
         "auth_key": get_decrypted_password('MSG91 Settings','MSG91 Settings','auth_key'),
         "sender_id": settings.sender_id,
         "otp_route": settings.otp_route,
+        "otp_template_id": settings.otp_template_id,
         "sms_route": settings.sms_route,
         "templates": {template.template_name: template.template_id for template in settings.templates}
     }
@@ -136,7 +137,7 @@ def send_otp(number, otp_length=6, otp_expiry=5, otp=None):
     if otp:
         data["otp"] = otp
     
-    template_id = settings["templates"].get("otp_template_id")
+    template_id = settings["otp_template_id"]
     if not template_id:
         frappe.throw(_("Template '{0}' not found in MSG91 Settings").format("otp_template_id"))
     

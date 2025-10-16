@@ -1,95 +1,122 @@
 {
-    "allow_rename": 0,
-    "creation": "2023-05-01 00:00:00.000000",
-    "doctype": "DocType",
-    "engine": "InnoDB",
-    "field_order": [
-        "enabled",
-        "auth_section",
-        "auth_key",
-        "sender_id",
-        "route_section",
-        "otp_route",
-        "sms_route",
-        "template_section",
-        "templates"
-    ],
-    "fields": [
-        {
-            "default": "0",
-            "fieldname": "enabled",
-            "fieldtype": "Check",
-            "label": "Enabled"
-        },
-        {
-            "fieldname": "auth_section",
-            "fieldtype": "Section Break",
-            "label": "Authentication"
-        },
-        {
-            "fieldname": "auth_key",
-            "fieldtype": "Password",
-            "label": "Auth Key",
-            "reqd": 1
-        },
-        {
-            "fieldname": "sender_id",
-            "fieldtype": "Data",
-            "label": "Sender ID",
-            "reqd": 1,
-            "description": "6 characters sender ID provided by MSG91"
-        },
-        {
-            "fieldname": "route_section",
-            "fieldtype": "Section Break",
-            "label": "API Routes"
-        },
-        {
-            "default": "https://control.msg91.com/api/v5/otp",
-            "fieldname": "otp_route",
-            "fieldtype": "Data",
-            "label": "OTP API Route",
-            "reqd": 1
-        },
-        {
-            "default": "https://api.msg91.com/api/v5/flow/",
-            "fieldname": "sms_route",
-            "fieldtype": "Data",
-            "label": "SMS API Route",
-            "reqd": 1
-        },
-        {
-            "fieldname": "template_section",
-            "fieldtype": "Section Break",
-            "label": "SMS Templates"
-        },
-        {
-            "fieldname": "templates",
-            "fieldtype": "Table",
-            "label": "Templates",
-            "options": "MSG91 Template"
-        }
-    ],
-    "issingle": 1,
-    "modified": "2023-05-01 00:00:00.000000",
-    "module": "MSG91 Integration",
-    "name": "MSG91 Settings",
-    "name_case": "Title Case",
-    "owner": "Administrator",
-    "permissions": [
-        {
-            "create": 1,
-            "delete": 1,
-            "email": 1,
-            "print": 1,
-            "read": 1,
-            "role": "System Manager",
-            "share": 1,
-            "write": 1
-        }
-    ],
-    "sort_field": "modified",
-    "sort_order": "DESC",
-    "states": [],
-    "track_changes": 1
-} 
+ "actions": [],
+ "creation": "2023-05-01 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "enabled",
+  "auth_section",
+  "auth_key",
+  "column_break_meve",
+  "sender_id",
+  "route_section",
+  "otp_route",
+  "column_break_gbdi",
+  "otp_template_id",
+  "column_break_rjtm",
+  "sms_route",
+  "template_section",
+  "templates"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled"
+  },
+  {
+   "fieldname": "auth_section",
+   "fieldtype": "Section Break",
+   "label": "Authentication"
+  },
+  {
+   "fieldname": "auth_key",
+   "fieldtype": "Password",
+   "in_list_view": 1,
+   "label": "Auth Key",
+   "reqd": 1
+  },
+  {
+   "description": "4-6 characters sender ID provided by MSG91",
+   "fieldname": "sender_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Sender ID",
+   "reqd": 1
+  },
+  {
+   "fieldname": "route_section",
+   "fieldtype": "Section Break",
+   "label": "API Routes"
+  },
+  {
+   "default": "https://control.msg91.com/api/v5/otp",
+   "fieldname": "otp_route",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "OTP API Route",
+   "reqd": 1
+  },
+  {
+   "default": "https://api.msg91.com/api/v5/flow/",
+   "fieldname": "sms_route",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "SMS API Route",
+   "reqd": 1
+  },
+  {
+   "fieldname": "template_section",
+   "fieldtype": "Section Break",
+   "label": "SMS Templates"
+  },
+  {
+   "fieldname": "templates",
+   "fieldtype": "Table",
+   "label": "Templates",
+   "options": "MSG91 Template"
+  },
+  {
+   "fieldname": "column_break_meve",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_gbdi",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "otp_template_id",
+   "fieldtype": "Data",
+   "label": "OTP Template ID"
+  },
+  {
+   "fieldname": "column_break_rjtm",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-10-16 19:57:26.794351",
+ "modified_by": "Administrator",
+ "module": "MSG91 Integration",
+ "name": "MSG91 Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
