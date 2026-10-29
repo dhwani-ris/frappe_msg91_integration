@@ -9,8 +9,6 @@ class MSG91Settings(Document):
                 frappe.throw(_("Auth Key is required when MSG91 is enabled"))
             if not self.sender_id:
                 frappe.throw(_("Sender ID is required when MSG91 is enabled"))
-            if len(self.sender_id) != 6:
-                frappe.throw(_("Sender ID must be exactly 6 characters"))
             
             # Validate API routes
             if not self.otp_route:
